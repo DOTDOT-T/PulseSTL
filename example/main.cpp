@@ -12,18 +12,14 @@ int main()
 {
     PulseLibs::STL::Vector<Human> humanList;
     unsigned long int totalSize = 0;
-    for(unsigned int i = 0; i < 150; ++i)
+    Human* hm = humanList.Back();
+    if(hm)
     {
-        humanList.Pushback({.age = i, .name = "Human structured"});
-        totalSize += sizeof(Human);
+        std::cout << "age of " << hm->name << " is " << hm->age << std::endl;
     }
-    for(unsigned int i = 0; i < 150; ++i)
-    {
-        std::cout << "Age at index " << i << " : " << humanList[i].age << " and name : " << humanList[i].name << std::endl;
-    }
+    humanList.Pushback({.age = 10, .name = "Louis"});
+    humanList.Pushback({.age = 15, .name = "Maxime"});
 
-    std::cout << "size of humanList (content) \t\t: " << totalSize << std::endl;
-    std::cout << "size of humanList (variable) \t: " << sizeof(humanList) << std::endl;
     
     std::cin.get();
     return 0;

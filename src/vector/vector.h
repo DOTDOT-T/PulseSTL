@@ -1,6 +1,10 @@
 #ifndef PULSESTL_VECTOR_H
 #define PULSESTL_VECTOR_H
 
+#include <stdexcept>
+
+#include "iterator/iterator.h"
+
 namespace PulseLibs::STL
 {
     template<typename Object>
@@ -18,6 +22,8 @@ namespace PulseLibs::STL
             delete[] item;
         }
 
+#pragma region INSERTION AND DELETE
+
         void Pushback(Object obj)  //for now, the pushback will only insert to the last position, next step -> return the iterator
         {
             Resize();
@@ -25,6 +31,15 @@ namespace PulseLibs::STL
             item[size] = obj;
             ++size;
         }
+
+        void Insert(Object item, int index)
+        {
+            Resize();
+        }
+
+#pragma endregion
+
+#pragma region UTILITIES
 
         /**
          * @brief Resize will only resize the vector if we got at the limit of the vector.
@@ -49,15 +64,30 @@ namespace PulseLibs::STL
             }
         }
 
-        void Insert(Object item, int index)
+#pragma endregion
+
+#pragma region ACCESSOR
+
+        PulseLibs::STL::Iterator Back()
         {
-            Resize();
+            try
+            {
+                if(size-1 < 0 ) throw std::out_of_range("vector is empty. Couldn't return the last item.");
+                return PulseLibs::STL::Iterator(item[size-1]);
+            }
+            catch(const std::out_of_range& e)
+            {
+                std::cout << std::endl << e.what() << std::endl;
+                return nullptr;
+            }
         }
 
         Object& operator[](int index)
         {
             return item[index];
         }
+
+#pragma endregion
 
     private:    
         Object* item;           // pointer to the first object
