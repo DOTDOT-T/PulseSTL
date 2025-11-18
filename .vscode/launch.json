@@ -1,0 +1,17 @@
+{
+    // Launch configuration to build with CMake and debug the generated executable
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch PulseSTL_Example (Debug)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/Debug/PulseSTL_Example.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "preLaunchTask": "cmake-build"
+        }
+    ]
+}
