@@ -22,6 +22,23 @@ namespace PulseLibs::STL
             delete[] item;
         }
 
+#pragma region MEMORY MANIPUALTION
+
+        void Reserve(int reserveSize)
+        {
+            if (reserveSize <= size) return;
+
+            Object* newBlock = new Object[reserveSize];
+            for (int i = 0; i < size; ++i)
+                newBlock[i] = item[i];
+
+            delete[] item;
+            item = newBlock;
+            capacity = reserveSize;
+        }
+
+#pragma endregion
+
 #pragma region INSERTION AND DELETE
 
         void Pushback(Object obj)  //for now, the pushback will only insert to the last position, next step -> return the iterator
@@ -51,16 +68,7 @@ namespace PulseLibs::STL
             {
                 // simple reallocation: double capacity
                 int newCapacity = capacity * 2;
-                Object *newBlock = new Object[newCapacity];
-
-                // first copy the content of item into the new vector
-                for (int i = 0; i < size; ++i)
-                    newBlock[i] = item[i];
-
-                // we dont need anymore the item vector so we can erase it to then assign it to the new block.
-                delete[] item;
-                item = newBlock;
-                capacity = newCapacity;
+                Reserve(newCapacity);
             }
         }
 
@@ -68,6 +76,10 @@ namespace PulseLibs::STL
 
 #pragma region ACCESSOR
 
+        /**
+         * @brief will return a reference to the last item of the vector. To get an iterator : @see Last()
+         * 
+         */
         Object& Back()
         {
             if (size == 0)
@@ -75,6 +87,7 @@ namespace PulseLibs::STL
         
             return item[size - 1];
         }
+    
         Iterator<Object> Last()
         {
             if (size == 0)
@@ -91,7 +104,16 @@ namespace PulseLibs::STL
             return item[index];
         }
 
+        /**
+         * @brief The size is the amount of "block" of size of Object that has been used and assign with data in the total capacity of the vector.
+         * 
+         */
         int Size() const { return size; }
+        /**
+         * @brief the capacity indicate the amount of Object that can be pushed in the vector before needing to resize the vector to a higher capacity.
+         * 
+         * @return int 
+         */
         int Capacity() const { return capacity; }        
 
 #pragma endregion
