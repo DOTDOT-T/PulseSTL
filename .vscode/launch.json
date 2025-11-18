@@ -11,7 +11,8 @@
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
-            "preLaunchTask": "cmake-build"
+            "preLaunchTask": "cmake-build",
+            "externalConsole": true
         }
     ]
 }

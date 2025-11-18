@@ -68,24 +68,31 @@ namespace PulseLibs::STL
 
 #pragma region ACCESSOR
 
-        PulseLibs::STL::Iterator Back()
+        Object& Back()
         {
-            try
-            {
-                if(size-1 < 0 ) throw std::out_of_range("vector is empty. Couldn't return the last item.");
-                return PulseLibs::STL::Iterator(item[size-1]);
-            }
-            catch(const std::out_of_range& e)
-            {
-                std::cout << std::endl << e.what() << std::endl;
-                return nullptr;
-            }
+            if (size == 0)
+                throw std::out_of_range("Vector is empty");
+        
+            return item[size - 1];
         }
+        Iterator<Object> Last()
+        {
+            if (size == 0)
+                throw std::out_of_range("Vector is empty");
+        
+            return Iterator<Object>{ item + (size - 1) };
+        }
+
+        Iterator<Object> Begin() { return Iterator<Object>{ item }; }
+        Iterator<Object> End()   { return Iterator<Object>{ item + size}; }
 
         Object& operator[](int index)
         {
             return item[index];
         }
+
+        int Size() const { return size; }
+        int Capacity() const { return capacity; }        
 
 #pragma endregion
 
