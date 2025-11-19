@@ -98,6 +98,8 @@ namespace PulseLibs::STL
 
         Iterator<Object> Begin() { return Iterator<Object>{ item }; }
         Iterator<Object> End()   { return Iterator<Object>{ item + size}; }
+        ReverseIterator<Object> rBegin() { return ReverseIterator<Object>{ item + size }; }
+        ReverseIterator<Object> rEnd()   { return ReverseIterator<Object>{ item }; }
 
         Object& operator[](int index)
         {

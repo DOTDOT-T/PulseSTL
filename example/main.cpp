@@ -23,7 +23,7 @@ int main()
     humanList.Pushback(new Human{.age = 20, .name = "James"});
     humanList.Pushback(new Human{.age = 17, .name = "Pierre"});
 
-    for(auto hmIt = humanList.Begin(); hmIt != humanList.End(); ++hmIt )
+    for(auto hmIt = humanList.rBegin(); hmIt != humanList.rEnd(); ++hmIt )
     {
         Human* hm = *hmIt;
         hm->Display();
