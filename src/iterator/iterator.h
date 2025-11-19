@@ -16,17 +16,17 @@ namespace PulseLibs::STL
 
         pointer ptr;
 
-        reference operator*() const { return *ptr; }
-        pointer   operator->() const { return ptr; }
+        reference operator*() const noexcept { return *ptr; }
+        pointer   operator->() const noexcept { return ptr; }
 
-        Iterator& operator++() { ++ptr; return *this; }     // prefix
-        Iterator  operator++(int) { Iterator tmp = *this; ++ptr; return tmp; } // postfix
+        Iterator& operator++() noexcept { ++ptr; return *this; }     // prefix
+        Iterator  operator++(int) noexcept { Iterator tmp = *this; ++ptr; return tmp; } // postfix
 
-        Iterator& operator--() { --ptr; return *this; }     // prefix decrement
-        Iterator  operator--(int) { Iterator tmp = *this; --ptr; return tmp; } // postfix decrement
+        Iterator& operator--() noexcept { --ptr; return *this; }     // prefix decrement
+        Iterator  operator--(int) noexcept { Iterator tmp = *this; --ptr; return tmp; } // postfix decrement
 
-        bool operator==(const Iterator& other) const { return ptr == other.ptr; }
-        bool operator!=(const Iterator& other) const { return ptr != other.ptr; }
+        bool operator==(const Iterator& other) const noexcept { return ptr == other.ptr; }
+        bool operator!=(const Iterator& other) const noexcept { return ptr != other.ptr; }
     };
 
     /**
