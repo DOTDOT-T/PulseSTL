@@ -1,7 +1,7 @@
 #ifndef PULSE_STL_ITERATOR_H
 #define PULSE_STL_ITERATOR_H
 
-namespace PulseLibs::STL
+namespace PulseLib::STL
 {
     /**
      * @brief Simple iterator structure to use with all PSTL containers

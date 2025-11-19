@@ -16,7 +16,7 @@ struct Human
 
 int main()
 {
-    PulseLibs::STL::Vector<Human*> humanList;
+    PulseLib::STL::Vector<Human*> humanList;
     unsigned long int totalSize = 0;
     humanList.Pushback(new Human{.age = 10, .name = "Louis"});
     humanList.Pushback(new Human{.age = 15, .name = "Maxime"});
@@ -29,6 +29,14 @@ int main()
         hm->Display();
     }
 
+    humanList.Clear();
+    humanList.Pushback(new Human{.age = 21, .name = "Dorian"});
+
+    for(auto hmIt = humanList.rBegin(); hmIt != humanList.rEnd(); ++hmIt )
+    {
+        Human* hm = *hmIt;
+        hm->Display();
+    }
 
     std::cout << "end of program..." << std::endl;
     std::cin.get();

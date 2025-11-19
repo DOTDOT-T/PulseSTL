@@ -5,7 +5,7 @@
 
 #include "iterator/iterator.h"
 
-namespace PulseLibs::STL
+namespace PulseLib::STL
 {
     template<typename Object>
     class Vector
@@ -49,6 +49,12 @@ namespace PulseLibs::STL
             delete[] item;
             item = newBlock;
             capacity = reserveSize;
+        }
+
+        void Clear()
+        {
+            delete[] item;
+            size = 0;
         }
 
 #pragma endregion
