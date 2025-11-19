@@ -42,26 +42,18 @@ namespace PulseLibs::STL
 
         Iterator<Object> base; // base iterator pointing after the element
 
-        reference operator*() const
-        {
-            Iterator<Object> tmp = base;
-            --tmp.ptr;
-            return *tmp;
-        }
+        reference operator*() const noexcept { Iterator<Object> tmp = base; --tmp.ptr; return *tmp; }
 
-        pointer operator->() const
-        {
-            return &(**this);
-        }
+        pointer operator->() const noexcept { return &(**this); }
 
-        ReverseIterator& operator++() { --base.ptr; return *this; }      // prefix
-        ReverseIterator  operator++(int) { ReverseIterator tmp = *this; --base.ptr; return tmp; } // postfix
+        ReverseIterator& operator++() noexcept { --base.ptr; return *this; }      // prefix
+        ReverseIterator  operator++(int) noexcept { ReverseIterator tmp = *this; --base.ptr; return tmp; } // postfix
 
-        ReverseIterator& operator--() { ++base.ptr; return *this; }      // prefix decrement
-        ReverseIterator  operator--(int) { ReverseIterator tmp = *this; ++base.ptr; return tmp; } // postfix decrement
+        ReverseIterator& operator--() noexcept { ++base.ptr; return *this; }      // prefix decrement
+        ReverseIterator  operator--(int) noexcept { ReverseIterator tmp = *this; ++base.ptr; return tmp; } // postfix decrement
 
-        bool operator==(const ReverseIterator& other) const { return base.operator==(other.base); }
-        bool operator!=(const ReverseIterator& other) const { return base.operator!=(other.base); }
+        bool operator==(const ReverseIterator& other) const noexcept { return base.operator==(other.base); }
+        bool operator!=(const ReverseIterator& other) const noexcept { return base.operator!=(other.base); }
     };
 };
 

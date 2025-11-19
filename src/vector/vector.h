@@ -26,11 +26,25 @@ namespace PulseLibs::STL
 
         void Reserve(int reserveSize)
         {
-            if (reserveSize <= size) return;
+            if (reserveSize <= capacity) return;
 
             Object* newBlock = new Object[reserveSize];
-            for (int i = 0; i < size; ++i)
-                newBlock[i] = item[i];
+
+            // By using a constexpr, we are telling at the compile time of the template which one to use
+            // -> gain time of compilation
+            // -> no need to evaluate at each call at runtime
+            // -> choose the right re-assign method
+            // objectif here is to easily reserve without costing a lot at runtime
+            if constexpr (std::is_trivially_copyable_v<Object>) 
+            {
+                std::memcpy(newBlock, item, size * sizeof(Object)); //copy memory only if its trivially copyable
+            } 
+            else 
+            {
+                for (int i = 0; i < size; ++i)
+                    newBlock[i] = std::move(item[i]); //move memory if the Object type isnt easy to copy
+            }
+            
 
             delete[] item;
             item = newBlock;
@@ -41,7 +55,7 @@ namespace PulseLibs::STL
 
 #pragma region INSERTION AND DELETE
 
-        void Pushback(Object obj)  //for now, the pushback will only insert to the last position, next step -> return the iterator
+        void Pushback(const Object& obj)  //for now, the pushback will only insert to the last position, next step -> return the iterator
         {
             Resize();
 
